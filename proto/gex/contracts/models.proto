@@ -1,0 +1,40 @@
+// [START declaration]
+syntax = 'proto3';
+package gex;
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/struct.proto";
+import "proto/custom/annotations.proto";
+
+option go_package = "github.com/BetaLixT/gex/pkg/domain/contracts";
+
+// =============================================================================
+// Common
+// =============================================================================
+
+message StringArray {
+  repeated string values = 1;
+}
+
+message EmptyResponse {}
+
+// =============================================================================
+// Document
+// =============================================================================
+
+// - Commands Queries
+message CreateIndexedDocumentCommand {  
+}
+
+message SearchQuery {
+  string query = 1;
+}
+
+// - Responses
+message DocumentCreatedResponse {
+
+}
+
+message SearchResponse {
+
+}

@@ -1,0 +1,35 @@
+// [START declaration]
+syntax = 'proto3';
+package gex;
+
+import "proto/gex/contracts/models.proto";
+import "proto/custom/annotations.proto";
+
+option go_package = "pkg/app/server/contracts";
+
+
+service Documents {
+
+  // Query for existing tasks
+  rpc Create(CreateIndexedDocumentCommand) returns (DocumentCreatedResponse) {
+    option (custom.documentation) = {
+      description: "create new document",
+      summary: "creates and indexes a new document",
+      tags: ["documents"],
+      rules: {
+        post: "/documents"
+      }
+    };
+  };
+
+  rpc Query(SearchQuery) returns (SearchResponse) {
+    option (custom.documentation) = {
+      description: "searches documents",
+      summary: "searches document with provided search query",
+      tags: ["documents"],
+      rules: {
+        get: "/documents/search"
+      }
+    };
+  };
+}
