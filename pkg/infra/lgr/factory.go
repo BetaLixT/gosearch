@@ -2,7 +2,7 @@ package lgr
 
 import (
 	"context"
-	"github.com/BetaLixT/gex/pkg/infra/cntxt"
+	"github.com/BetaLixT/gosearch/pkg/infra/cntxt"
 
 	"go.uber.org/zap"
 )

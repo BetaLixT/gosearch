@@ -2,7 +2,7 @@ package trace
 
 import (
 	"context"
-	"github.com/BetaLixT/gex/pkg/infra/cntxt"
+	"github.com/BetaLixT/gosearch/pkg/infra/cntxt"
 )
 
 type traceExtractor struct{}

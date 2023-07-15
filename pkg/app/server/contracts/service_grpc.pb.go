@@ -4,13 +4,13 @@
 // versions:
 // - protoc-gen-go-grpc v1.3.0
 // - protoc             v4.23.3
-// source: proto/gex/contracts/service.proto
+// source: proto/gosearch/contracts/service.proto
 
 package contracts
 
 import (
 	context "context"
-	contracts "github.com/BetaLixT/gex/pkg/domain/contracts"
+	contracts "github.com/BetaLixT/gosearch/pkg/domain/contracts"
 	grpc "google.golang.org/grpc"
 	codes "google.golang.org/grpc/codes"
 	status "google.golang.org/grpc/status"
@@ -22,8 +22,8 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	Documents_Create_FullMethodName = "/gex.Documents/Create"
-	Documents_Query_FullMethodName  = "/gex.Documents/Query"
+	Documents_Create_FullMethodName = "/gosearch.Documents/Create"
+	Documents_Query_FullMethodName  = "/gosearch.Documents/Query"
 )
 
 // DocumentsClient is the client API for Documents service.
@@ -134,7 +134,7 @@ func _Documents_Query_Handler(srv interface{}, ctx context.Context, dec func(int
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var Documents_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "gex.Documents",
+	ServiceName: "gosearch.Documents",
 	HandlerType: (*DocumentsServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
@@ -147,5 +147,5 @@ var Documents_ServiceDesc = grpc.ServiceDesc{
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
-	Metadata: "proto/gex/contracts/service.proto",
+	Metadata: "proto/gosearch/contracts/service.proto",
 }

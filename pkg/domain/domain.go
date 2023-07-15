@@ -3,7 +3,7 @@ package domain
 
 import (
 	"github.com/google/wire"
-	"github.com/BetaLixT/gex/pkg/domain/usecases"
+	"github.com/BetaLixT/gosearch/pkg/domain/usecases"
 )
 
 // DependencySet dependencies provided by the domain

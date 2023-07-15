@@ -1,8 +1,8 @@
 package documents
 
 import (
-	"github.com/BetaLixT/gex/pkg/domain/domains/documents"
-	"github.com/BetaLixT/gex/pkg/impls/roach/repos/base"
+	"github.com/BetaLixT/gosearch/pkg/domain/domains/documents"
+	"github.com/BetaLixT/gosearch/pkg/impls/roach/repos/base"
 )
 
 var _ (documents.IRepository) = (*Repository)(nil)

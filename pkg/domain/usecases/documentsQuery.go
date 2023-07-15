@@ -1,8 +1,8 @@
 package usecases
 
 import (
-	"github.com/BetaLixT/gex/pkg/domain/base/cntxt"
-	"github.com/BetaLixT/gex/pkg/domain/contracts"
+	"github.com/BetaLixT/gosearch/pkg/domain/base/cntxt"
+	"github.com/BetaLixT/gosearch/pkg/domain/contracts"
 	"github.com/betalixt/gorr"
 	"go.uber.org/zap"
 )

@@ -1,4 +1,4 @@
-module github.com/BetaLixT/gex
+module github.com/BetaLixT/gosearch
 
 go 1.19
 

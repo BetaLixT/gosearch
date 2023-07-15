@@ -9,8 +9,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/BetaLixT/gex/pkg/app/server/common"
-	domcom "github.com/BetaLixT/gex/pkg/domain/common"
+	"github.com/BetaLixT/gosearch/pkg/app/server/common"
+	domcom "github.com/BetaLixT/gosearch/pkg/domain/common"
 
 	"github.com/betalixt/gorr"
 	"go.uber.org/zap"

@@ -4,5 +4,5 @@ package common
 // All the constants used by and known to the domain
 
 const (
-	ServiceName = "gex"
+	ServiceName = "gosearch"
 )

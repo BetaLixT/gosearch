@@ -2,8 +2,8 @@ package trace
 
 import (
 	"context"
-	"github.com/BetaLixT/gex/pkg/domain/base/logger"
-	"github.com/BetaLixT/gex/pkg/infra/tracelib"
+	"github.com/BetaLixT/gosearch/pkg/domain/base/logger"
+	"github.com/BetaLixT/gosearch/pkg/infra/tracelib"
 
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
 )

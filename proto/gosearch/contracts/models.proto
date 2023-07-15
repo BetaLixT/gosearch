@@ -1,12 +1,12 @@
 // [START declaration]
 syntax = 'proto3';
-package gex;
+package gosearch;
 
 import "google/protobuf/timestamp.proto";
 import "google/protobuf/struct.proto";
 import "proto/custom/annotations.proto";
 
-option go_package = "github.com/BetaLixT/gex/pkg/domain/contracts";
+option go_package = "github.com/BetaLixT/gosearch/pkg/domain/contracts";
 
 // =============================================================================
 // Common

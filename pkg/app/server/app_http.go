@@ -8,8 +8,8 @@ import (
 	"strconv"
 	"time"
 
-	"github.com/BetaLixT/gex/pkg/app/server/common"
-	"github.com/BetaLixT/gex/pkg/app/server/contracts"
+	"github.com/BetaLixT/gosearch/pkg/app/server/common"
+	"github.com/BetaLixT/gosearch/pkg/app/server/contracts"
 
 	"github.com/betalixt/gorr"
 	"github.com/gin-gonic/gin"

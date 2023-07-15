@@ -5,11 +5,11 @@ gen:
 build-validation:
 	docker build -f ./Dockerfile.test .
 ci:
-	docker build -f ./Dockerfile -t $(registry)/gex:$(env) .
-	docker push $(registry)/gex:$(env)
+	docker build -f ./Dockerfile -t $(registry)/gosearch:$(env) .
+	docker push $(registry)/gosearch:$(env)
 setup:
-	@prname='github.com/BetaLixT/gex';read -p "Enter Project Name ($$prname):" new; find . -type f  -not -path "./.git/*" -not -path "./pkg/app/server/static/swagger/*" -exec sed -i "" "s|$$prname|$$new|g" {} \;
-	@prname='gex';read -p "Enter Service Name ($$prname):" new; mv proto/$$prname proto/$$new; find . -type f -not -path "./.git/*" -not -path "./pkg/app/server/static/swagger/*" -exec sed -i "" "s|$$prname|$$new|g" {} \;
+	@prname='github.com/BetaLixT/gosearch';read -p "Enter Project Name ($$prname):" new; find . -type f  -not -path "./.git/*" -not -path "./pkg/app/server/static/swagger/*" -exec sed -i "" "s|$$prname|$$new|g" {} \;
+	@prname='gosearch';read -p "Enter Service Name ($$prname):" new; mv proto/$$prname proto/$$new; find . -type f -not -path "./.git/*" -not -path "./pkg/app/server/static/swagger/*" -exec sed -i "" "s|$$prname|$$new|g" {} \;
 setup-gen:
 	go install github.com/google/wire/cmd/wire@latest
 	go install google.golang.org/protobuf/cmd/protoc-gen-go@latest

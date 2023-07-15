@@ -6,10 +6,10 @@ import (
 	"sync"
 	"time"
 
-	domcntxt "github.com/BetaLixT/gex/pkg/domain/base/cntxt"
-	"github.com/BetaLixT/gex/pkg/domain/base/logger"
-	implcntxt "github.com/BetaLixT/gex/pkg/impls/base/cntxt"
-	infrcntxt "github.com/BetaLixT/gex/pkg/infra/cntxt"
+	domcntxt "github.com/BetaLixT/gosearch/pkg/domain/base/cntxt"
+	"github.com/BetaLixT/gosearch/pkg/domain/base/logger"
+	implcntxt "github.com/BetaLixT/gosearch/pkg/impls/base/cntxt"
+	infrcntxt "github.com/BetaLixT/gosearch/pkg/infra/cntxt"
 
 	"github.com/BetaLixT/go-resiliency/retrier"
 	"go.uber.org/zap"

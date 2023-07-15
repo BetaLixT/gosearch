@@ -8,7 +8,7 @@ import (
 	"fmt"
 
 	// blank import to load postgresql drivers
-	"github.com/BetaLixT/gex/pkg/infra/roachdb"
+	"github.com/BetaLixT/gosearch/pkg/infra/roachdb"
 	_ "github.com/lib/pq"
 )
 

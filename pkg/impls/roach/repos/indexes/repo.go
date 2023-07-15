@@ -1,8 +1,8 @@
 package indexes
 
 import (
-	"github.com/BetaLixT/gex/pkg/domain/domains/indexes"
-	"github.com/BetaLixT/gex/pkg/impls/roach/repos/base"
+	"github.com/BetaLixT/gosearch/pkg/domain/domains/indexes"
+	"github.com/BetaLixT/gosearch/pkg/impls/roach/repos/base"
 )
 
 var _ (indexes.IRepository) = (*Repository)(nil)

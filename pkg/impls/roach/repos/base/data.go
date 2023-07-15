@@ -4,9 +4,9 @@ package base
 import (
 	"context"
 
-	"github.com/BetaLixT/gex/pkg/domain/base/logger"
-	"github.com/BetaLixT/gex/pkg/impls/base/cntxt"
-	"github.com/BetaLixT/gex/pkg/impls/roach/common"
+	"github.com/BetaLixT/gosearch/pkg/domain/base/logger"
+	"github.com/BetaLixT/gosearch/pkg/impls/base/cntxt"
+	"github.com/BetaLixT/gosearch/pkg/impls/roach/common"
 
 	"github.com/BetaLixT/tsqlx"
 )

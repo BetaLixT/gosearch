@@ -1,10 +1,10 @@
 package usecases
 
 import (
-	"github.com/BetaLixT/gex/pkg/domain/base/logger"
-	"github.com/BetaLixT/gex/pkg/domain/base/uids"
-	"github.com/BetaLixT/gex/pkg/domain/domains/documents"
-	"github.com/BetaLixT/gex/pkg/domain/domains/indexes"
+	"github.com/BetaLixT/gosearch/pkg/domain/base/logger"
+	"github.com/BetaLixT/gosearch/pkg/domain/base/uids"
+	"github.com/BetaLixT/gosearch/pkg/domain/domains/documents"
+	"github.com/BetaLixT/gosearch/pkg/domain/domains/indexes"
 )
 
 type UseCases struct {

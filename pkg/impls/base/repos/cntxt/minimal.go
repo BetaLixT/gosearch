@@ -4,7 +4,7 @@ import (
 	"context"
 	"time"
 
-	infrcntxt "github.com/BetaLixT/gex/pkg/infra/cntxt"
+	infrcntxt "github.com/BetaLixT/gosearch/pkg/infra/cntxt"
 )
 
 var (

@@ -3,7 +3,7 @@ package uids
 import (
 	"context"
 
-	"github.com/BetaLixT/gex/pkg/domain/base/uids"
+	"github.com/BetaLixT/gosearch/pkg/domain/base/uids"
 	"github.com/bwmarrin/snowflake"
 )
 
