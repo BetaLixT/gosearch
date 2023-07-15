@@ -3,10 +3,10 @@ package usecases
 import "testing"
 
 func TestTokenize(t *testing.T) {
-	query := "this  is a test"
-	res := tokenize(query)
+	query := "this  is \"a test\" \\\"help \\\\wow"
+	res := tokenize(query, SpaceBreakCheck)
 	t.Log(res)
-	if len(res) != 4 {
+	if len(res) != 5 {
 		t.Log("failed")
 		t.FailNow()
 	}
@@ -21,12 +21,17 @@ func TestTokenize(t *testing.T) {
 		t.FailNow()
 	}
 
-	if res[2] != "a" {
+	if res[2] != "a test" {
 		t.Log("failed")
 		t.FailNow()
 	}
 
-	if res[3] != "test" {
+	if res[3] != "\"help" {
+		t.Log("failed")
+		t.FailNow()
+	}
+
+	if res[4] != "\\wow" {
 		t.Log("failed")
 		t.FailNow()
 	}
