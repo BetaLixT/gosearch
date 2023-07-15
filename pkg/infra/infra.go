@@ -12,6 +12,7 @@ import (
 	"github.com/BetaLixT/gosearch/pkg/infra/trace"
 	"github.com/BetaLixT/gosearch/pkg/infra/trace/appinsights"
 	"github.com/BetaLixT/gosearch/pkg/infra/trace/jaeger"
+	"github.com/BetaLixT/gosearch/pkg/infra/trace/logex"
 	"github.com/BetaLixT/gosearch/pkg/infra/trace/promex"
 	"github.com/BetaLixT/gosearch/pkg/infra/tracelib"
 
@@ -31,6 +32,7 @@ var DependencySet = wire.NewSet(
 	appinsights.NewTraceExporter,
 	config.NewAppInsightsExporterOptions,
 	promex.NewTraceExporter,
+	logex.New,
 
 	config.NewInitializer,
 	lgr.NewLoggerFactory,

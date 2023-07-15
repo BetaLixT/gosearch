@@ -17,12 +17,12 @@ import (
 	"github.com/BetaLixT/gosearch/pkg/impls/roach/repos/indexes"
 	"github.com/BetaLixT/gosearch/pkg/infra/config"
 	"github.com/BetaLixT/gosearch/pkg/infra/lgr"
-	"github.com/BetaLixT/gosearch/pkg/infra/redisdb"
 	"github.com/BetaLixT/gosearch/pkg/infra/roachdb"
 	"github.com/BetaLixT/gosearch/pkg/infra/snowflake"
 	"github.com/BetaLixT/gosearch/pkg/infra/trace"
 	"github.com/BetaLixT/gosearch/pkg/infra/trace/appinsights"
 	"github.com/BetaLixT/gosearch/pkg/infra/trace/jaeger"
+	"github.com/BetaLixT/gosearch/pkg/infra/trace/logex"
 	"github.com/BetaLixT/gosearch/pkg/infra/trace/promex"
 )
 
@@ -52,11 +52,12 @@ func initializeAppRoach() (*app, error) {
 	if err != nil {
 		return nil, err
 	}
+	logexTraceExporter := logex.New(loggerFactory)
 	promexTraceExporter, err := promex.NewTraceExporter()
 	if err != nil {
 		return nil, err
 	}
-	exporterList := trace.NewTraceExporterList(traceExporter, jaegerTraceExporter, promexTraceExporter, loggerFactory)
+	exporterList := trace.NewTraceExporterList(traceExporter, jaegerTraceExporter, logexTraceExporter, promexTraceExporter, loggerFactory)
 	traceOptions, err := config.NewTraceOptions(initializer)
 	if err != nil {
 		return nil, err
@@ -75,12 +76,7 @@ func initializeAppRoach() (*app, error) {
 	indexesRepository := indexes.New(baseDataRepository)
 	useCases := usecases.NewUseCases(loggerFactory, uidRepository, repository, indexesRepository)
 	documentsHandler := handlers.NewDocumentsHandler(loggerFactory, useCases)
-	redisdbOptions := config.NewRedisOptions(initializer)
-	client, err := redisdb.NewRedisContext(redisdbOptions, tracer)
-	if err != nil {
-		return nil, err
-	}
-	implementation := roach.NewImplementation(tracedDB, client, loggerFactory)
+	implementation := roach.NewImplementation(tracedDB, loggerFactory)
 	contextFactory := cntxt.NewContextFactory(loggerFactory)
 	serverApp := newApp(documentsHandler, documentsHandler, implementation, loggerFactory, contextFactory, tracer)
 	return serverApp, nil

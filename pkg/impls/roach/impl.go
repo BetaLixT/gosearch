@@ -19,7 +19,6 @@ import (
 	"github.com/BetaLixT/gosearch/pkg/infra/roachdb"
 
 	"github.com/BetaLixT/tsqlx"
-	"github.com/go-redis/redis/v8"
 	"github.com/google/wire"
 	"go.uber.org/zap"
 )
@@ -61,19 +60,16 @@ var DependencySet = wire.NewSet(
 type Implementation struct {
 	dbctx *tsqlx.TracedDB
 	lgrf  *lgr.LoggerFactory
-	rdb   *redis.Client
 }
 
 // NewImplementation constructor for the roach implementation
 func NewImplementation(
 	dbctx *tsqlx.TracedDB,
-	rdb *redis.Client,
 	lgrf *lgr.LoggerFactory,
 ) *Implementation {
 	return &Implementation{
-		dbctx: dbctx,
-		lgrf:  lgrf,
-		rdb:   rdb,
+		dbctx,
+		lgrf,
 	}
 }
 
@@ -113,14 +109,5 @@ func (i *Implementation) StatusCheck(ctx context.Context) error {
 		return err
 	}
 	lgr.Info("psql ok")
-
-	lgr.Info("pinging redis...")
-	err = i.rdb.Ping(ctx).Err()
-	if err != nil {
-		lgr.Error("failed pinging redis")
-		return err
-	}
-	lgr.Info("rdb ok")
-
 	return nil
 }

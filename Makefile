@@ -16,4 +16,4 @@ setup-gen:
 	go install google.golang.org/grpc/cmd/protoc-gen-go-grpc@latest
 	go install github.com/BetaLixT/golang-tooling/protoc-gen-goconstrgen@latest
 	go install github.com/BetaLixT/golang-tooling/protoc-gen-goblthttp@latest
-	go install go install github.com/BetaLixT/golang-tooling/handlergen@latest
+	go install github.com/BetaLixT/golang-tooling/handlergen@latest

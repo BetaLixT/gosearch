@@ -7,6 +7,7 @@ import (
 
 	"github.com/BetaLixT/gosearch/pkg/infra/trace/appinsights"
 	"github.com/BetaLixT/gosearch/pkg/infra/trace/jaeger"
+	"github.com/BetaLixT/gosearch/pkg/infra/trace/logex"
 	"github.com/BetaLixT/gosearch/pkg/infra/trace/promex"
 
 	sdktrace "go.opentelemetry.io/otel/sdk/trace"
@@ -16,6 +17,7 @@ import (
 func NewTraceExporterList(
 	insexp appinsights.TraceExporter,
 	jgrexp jaeger.TraceExporter,
+	lgexp logex.TraceExporter,
 	prmex promex.TraceExporter,
 	lgrf logger.IFactory,
 ) *ExporterList {
@@ -33,7 +35,8 @@ func NewTraceExporterList(
 		lgr.Warn("jeager exporter not found")
 	}
 	if len(exp) == 0 {
-		panic("no tracing exporters found (float you <3)")
+		lgr.Warn("not tracing exporters found, console trace exporter will be used")
+		exp = append(exp, lgexp)
 	}
 	exp = append(exp, prmex)
 	return &ExporterList{
