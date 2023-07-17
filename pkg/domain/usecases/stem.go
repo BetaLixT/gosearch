@@ -14,7 +14,7 @@ func stem(s []rune) []rune {
 		s[i] = unicode.ToLower(s[i])
 	}
 
-	if len(s) < 2 {
+	if len(s) < 3 {
 		return s
 	}
 
@@ -50,7 +50,7 @@ func stem(s []rune) []rune {
 			}
 		}
 	} else if hasSuffix(s, []rune("ing")) {
-		sub := s[:len(s)-2]
+		sub := s[:len(s)-3]
 		if containsVowel(sub) {
 			if hasSuffix(sub, []rune("at")) ||
 				hasSuffix(sub, []rune("bl")) ||
