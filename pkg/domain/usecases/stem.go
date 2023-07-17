@@ -2,6 +2,7 @@ package usecases
 
 import "unicode"
 
+// based of https://github.com/reiver/go-porterstemmer/tree/master
 func stem(s []rune) []rune {
 
 	if len(s) == 0 {
@@ -41,7 +42,7 @@ func stem(s []rune) []rune {
 				s = s[:len(s)-1]
 			} else if c := sub[len(sub)-1]; c != 'l' && c != 's' && c != 'z' && hasRepeatDoubleConsonantSuffix(sub) {
 				s = sub[:len(sub)-1]
-			} else if c := sub[len(sub)-1]; 1 == measure(sub) && hasConsonantVowelConsonantSuffix(sub) && 'w' != c && 'x' != c && 'y' != c {
+			} else if c := sub[len(sub)-1]; 1 == measure(sub) && hasConsonantVowelConsonantSuffix(sub) && c != 'w' && c != 'x' && c != 'y' {
 				s = s[:len(s)-1]
 				s[len(s)-1] = 'e'
 			} else {
@@ -327,8 +328,29 @@ func stem(s []rune) []rune {
 		}
 	}
 
+	if s[len(s)-1] == 'e' {
+		sub := s[:len(s)-1]
+		if len(sub) != 0 {
+			m := measure(sub)
+			if m > 1 {
+				s = sub
+			} else if m == 1 {
+				if c := sub[len(sub)-1]; !(hasConsonantVowelConsonantSuffix(sub) && 'w' != c && 'x' != c && 'y' != c) {
+					s = sub
+				}
+			}
+		}
+	}
+
+	if len(s) > 2 && s[len(s)-2] == 'l' && s[len(s)-1] == 'l' {
+		sub := s[:len(s)-1]
+		if measure(sub) > 1 {
+			s = sub
+		}
+	}
+
 	// Return.
-	return result
+	return s
 }
 
 func hasSuffix(s, suffix []rune) bool {
@@ -414,12 +436,44 @@ func isConsonant(s []rune, i int) bool {
 
 func containsVowel(s []rune) bool {
 
-	len(s) := len(s)
-
 	for i := 0; i < len(s); i++ {
 		if !isConsonant(s, i) {
 			return true
 		}
 	}
 	return false
+}
+
+func hasConsonantVowelConsonantSuffix(s []rune) bool {
+
+	result := false
+
+	// Do it!
+	if len(s) < 3 {
+		result = false
+	} else if isConsonant(s, len(s)-3) && !isConsonant(s, len(s)-2) && isConsonant(s, len(s)-1) {
+		result = true
+	} else {
+		result = false
+	}
+
+	// Return
+	return result
+}
+
+func hasRepeatDoubleConsonantSuffix(s []rune) bool {
+
+	result := false
+
+	// Do it!
+	if 2 > len(s) {
+		result = false
+	} else if s[len(s)-1] == s[len(s)-2] && isConsonant(s, len(s)-1) { // Will using isConsonant() cause a problem with "YY"?
+		result = true
+	} else {
+		result = false
+	}
+
+	// Return,
+	return result
 }
