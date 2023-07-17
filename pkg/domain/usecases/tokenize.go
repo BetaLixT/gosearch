@@ -41,7 +41,8 @@ func tokenize(
 		}
 
 		if len(word) != 0 {
-			out = append(out, string(word))
+
+			out = append(out, string(stem(word)))
 			word = word[:0]
 		}
 
