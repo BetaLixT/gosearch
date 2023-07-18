@@ -1,1 +1,2 @@
 cfg/.env
+pkg/domain/usecases/testdata/**

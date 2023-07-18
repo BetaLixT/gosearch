@@ -94,7 +94,7 @@ func stem(s []rune) []rune {
 	if len(s) < 2 {
 		return s
 	}
-	if s[len(s)-1] == 'y' {
+	if s[len(s)-1] == 'y' && containsVowel(s[:len(s)-1]) {
 		s[len(s)-1] = 'i'
 	}
 
@@ -382,13 +382,14 @@ func hasSuffix(s, suffix []rune) bool {
 
 	if lenSMinusOne <= criesfixlenMinusOne {
 		return false
-	} else if s[lenSMinusOne] != suffix[criesfixlenMinusOne] {
+	}
+	if s[lenSMinusOne] != suffix[criesfixlenMinusOne] {
 		return false
-	} else {
-		for i := 0; i < criesfixlenMinusOne; i++ {
-			if suffix[i] != s[lenSMinusOne-criesfixlenMinusOne+i] {
-				return false
-			}
+	}
+
+	for i := 0; i < criesfixlenMinusOne; i++ {
+		if suffix[i] != s[lenSMinusOne-criesfixlenMinusOne+i] {
+			return false
 		}
 	}
 	return true
