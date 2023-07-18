@@ -3,6 +3,10 @@
 
 package contracts
 
+import (
+	structpb "google.golang.org/protobuf/types/known/structpb"
+)
+
 func NewStringArray(
 	values []string,
 ) *StringArray {
@@ -15,8 +19,16 @@ func NewEmptyResponse() *EmptyResponse {
 	return &EmptyResponse{}
 }
 
-func NewCreateIndexedDocumentCommand() *CreateIndexedDocumentCommand {
-	return &CreateIndexedDocumentCommand{}
+func NewCreateIndexedDocumentCommand(
+	document map[string]interface{},
+) (*CreateIndexedDocumentCommand, error) {
+	resDocument, err := structpb.NewStruct(document)
+	if err != nil {
+		return nil, err
+	}
+	return &CreateIndexedDocumentCommand{
+		Document: resDocument,
+	}, nil
 }
 
 func NewSearchQuery(
@@ -27,8 +39,14 @@ func NewSearchQuery(
 	}
 }
 
-func NewDocumentCreatedResponse() *DocumentCreatedResponse {
-	return &DocumentCreatedResponse{}
+func NewDocumentCreatedResponse(
+	indexedTerms []string,
+	id uint64,
+) *DocumentCreatedResponse {
+	return &DocumentCreatedResponse{
+		IndexedTerms: indexedTerms,
+		Id:           id,
+	}
 }
 
 func NewSearchResponse() *SearchResponse {

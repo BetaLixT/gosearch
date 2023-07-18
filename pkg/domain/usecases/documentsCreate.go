@@ -1,6 +1,8 @@
 package usecases
 
 import (
+	"unicode"
+
 	"github.com/BetaLixT/gosearch/pkg/domain/base/cntxt"
 	"github.com/BetaLixT/gosearch/pkg/domain/contracts"
 	"github.com/betalixt/gorr"
@@ -19,6 +21,9 @@ func (u *UseCases) DocumentsCreate(
 		zap.String("usecase", "Create"),
 	)
 
+	// TODO: possible optimization with alloc
+	indexed := []string{}
+
 	err = gorr.NewNotImplemented()
 	if err != nil {
 		lgr.Error(
@@ -28,3 +33,28 @@ func (u *UseCases) DocumentsCreate(
 	}
 	return
 }
+
+func findKeys(doc map[string]interface{}) (res []string) {
+	for k := range doc {
+		if s, ok := doc[k].(string); ok {
+			if len(s) < EntireStringCacheMaxLength && !hasWhitespace(s) {
+				res = append(res, s)
+			}
+			res = append(res, tokenize(s, SpecialCharacterBreakCheck)...)
+			continue
+		}
+	}
+}
+
+func hasWhitespace(in string) bool {
+	for _, b := range in {
+		if unicode.IsSpace(rune(b)) {
+			return true
+		}
+	}
+	return false
+}
+
+const (
+	EntireStringCacheMaxLength = 500
+)

@@ -53,9 +53,20 @@ components:
     DocumentCreatedResponse:
       type: object
       properties:
+        indexedTerms:
+          type: array
+          items:
+            type: string
+            example: sample
+        id:
+          type: integer
+          format: int64
+          example: 1
     CreateIndexedDocumentCommand:
       type: object
       properties:
+        document:
+          type: object
     SearchResponse:
       type: object
       properties:

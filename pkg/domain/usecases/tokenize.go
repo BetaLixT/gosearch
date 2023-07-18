@@ -1,11 +1,14 @@
 package usecases
 
+import "unicode"
+
 // TODO: might remove this since it probs wont be inlined
 type WordBreakCheck func(rune) bool
 
 func tokenize(
 	in string,
 	brCheck WordBreakCheck,
+	onlyLiteral bool,
 ) (out []string) {
 	word := make([]rune, 0, 50)
 
@@ -62,6 +65,6 @@ func SpaceBreakCheck(r rune) bool {
 	return r == ' '
 }
 
-// func SpaceBreakCheck(r rune) bool {
-// 	return r == ' '
-// }
+func SpecialCharacterBreakCheck(r rune) bool {
+	return !unicode.IsLetter(r) && unicode.IsNumber(r)
+}

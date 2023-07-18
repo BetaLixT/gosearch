@@ -23,7 +23,8 @@ message EmptyResponse {}
 // =============================================================================
 
 // - Commands Queries
-message CreateIndexedDocumentCommand {  
+message CreateIndexedDocumentCommand {
+  google.protobuf.Struct document = 1;
 }
 
 message SearchQuery {
@@ -32,7 +33,8 @@ message SearchQuery {
 
 // - Responses
 message DocumentCreatedResponse {
-
+  repeated string indexedTerms = 1;
+  uint64 id = 2;
 }
 
 message SearchResponse {
