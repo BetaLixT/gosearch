@@ -1,6 +1,8 @@
 package documents
 
 import (
+	"context"
+
 	"github.com/BetaLixT/gosearch/pkg/domain/domains/documents"
 	"github.com/BetaLixT/gosearch/pkg/impls/roach/repos/base"
 )
@@ -15,4 +17,18 @@ func New(b *base.BaseDataRepository) *Repository {
 
 type Repository struct {
 	*base.BaseDataRepository
+}
+
+func (r *Repository) Create(
+	ctx context.Context,
+	docs []documents.CreateDocument,
+) error {
+
+}
+
+func (r *Repository) Get(
+	ctx context.Context,
+	ids []uint64,
+) ([]map[string]interface{}, error) {
+
 }

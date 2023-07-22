@@ -53,23 +53,36 @@ components:
     DocumentCreatedResponse:
       type: object
       properties:
+        documents:
+          type: array
+          items:
+            $ref: '#/components/schemas/IndexedDocument'
+    IndexedDocument:
+      type: object
+      properties:
+        documentId:
+          type: integer
+          format: int64
+          example: 1
         indexedTerms:
           type: array
           items:
             type: string
             example: sample
-        id:
-          type: integer
-          format: int64
-          example: 1
     CreateIndexedDocumentCommand:
       type: object
       properties:
-        document:
-          type: object
+        documents:
+          type: array
+          items:
+            type: object
     SearchResponse:
       type: object
       properties:
+        documents:
+          type: array
+          items:
+            type: object
     SearchQuery:
       type: object
       properties:

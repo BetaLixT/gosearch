@@ -66,5 +66,5 @@ func SpaceBreakCheck(r rune) bool {
 }
 
 func SpecialCharacterBreakCheck(r rune) bool {
-	return !unicode.IsLetter(r) && unicode.IsNumber(r)
+	return !unicode.IsLetter(r) && !unicode.IsNumber(r)
 }

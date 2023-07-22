@@ -3,7 +3,6 @@ package usecases
 import (
 	"github.com/BetaLixT/gosearch/pkg/domain/base/cntxt"
 	"github.com/BetaLixT/gosearch/pkg/domain/contracts"
-	"github.com/betalixt/gorr"
 	"go.uber.org/zap"
 )
 
@@ -19,7 +18,20 @@ func (u *UseCases) DocumentsQuery(
 		zap.String("usecase", "Query"),
 	)
 
-	err = gorr.NewNotImplemented()
+	keys := removeDuplicates(tokenize(qry.Query, SpecialCharacterBreakCheck, false))
+	docids, err := u.idxrepo.GetDocs(ctx, keys)
+	if err != nil {
+		lgr.Error("failed to create indexed docs", zap.Error(err))
+		return nil, err
+	}
+
+	docs, err := u.docrepo.Get(ctx, docids)
+	if err != nil {
+		lgr.Error("failed to fetch documents", zap.Error(err))
+		return nil, err
+	}
+
+	res, err = contracts.NewSearchResponse(docs)
 	if err != nil {
 		lgr.Error(
 			"error while running usecase",

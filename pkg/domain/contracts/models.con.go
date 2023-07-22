@@ -19,15 +19,25 @@ func NewEmptyResponse() *EmptyResponse {
 	return &EmptyResponse{}
 }
 
+func NewIndexedDocument(
+	documentId uint64,
+	indexedTerms []string,
+) *IndexedDocument {
+	return &IndexedDocument{
+		DocumentId:   documentId,
+		IndexedTerms: indexedTerms,
+	}
+}
+
 func NewCreateIndexedDocumentCommand(
-	document map[string]interface{},
+	documents []map[string]interface{},
 ) (*CreateIndexedDocumentCommand, error) {
-	resDocument, err := structpb.NewStruct(document)
+	resDocuments, err := structpb.NewStruct(documents)
 	if err != nil {
 		return nil, err
 	}
 	return &CreateIndexedDocumentCommand{
-		Document: resDocument,
+		Documents: resDocuments,
 	}, nil
 }
 
@@ -40,15 +50,21 @@ func NewSearchQuery(
 }
 
 func NewDocumentCreatedResponse(
-	indexedTerms []string,
-	id uint64,
+	documents []*IndexedDocument,
 ) *DocumentCreatedResponse {
 	return &DocumentCreatedResponse{
-		IndexedTerms: indexedTerms,
-		Id:           id,
+		Documents: documents,
 	}
 }
 
-func NewSearchResponse() *SearchResponse {
-	return &SearchResponse{}
+func NewSearchResponse(
+	documents []map[string]interface{},
+) (*SearchResponse, error) {
+	resDocuments, err := structpb.NewStruct(documents)
+	if err != nil {
+		return nil, err
+	}
+	return &SearchResponse{
+		Documents: resDocuments,
+	}, nil
 }

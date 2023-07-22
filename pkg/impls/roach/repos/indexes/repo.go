@@ -1,6 +1,8 @@
 package indexes
 
 import (
+	"context"
+
 	"github.com/BetaLixT/gosearch/pkg/domain/domains/indexes"
 	"github.com/BetaLixT/gosearch/pkg/impls/roach/repos/base"
 )
@@ -15,4 +17,18 @@ func New(b *base.BaseDataRepository) *Repository {
 
 type Repository struct {
 	*base.BaseDataRepository
+}
+
+func (r *Repository) Create(
+	ctx context.Context,
+	idxs []indexes.CreateIndex,
+) error {
+
+}
+
+func (r *Repository) GetDocs(
+	ctx context.Context,
+	keys []string,
+) ([]uint64, error) {
+
 }

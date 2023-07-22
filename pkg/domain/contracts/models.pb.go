@@ -110,19 +110,74 @@ func (*EmptyResponse) Descriptor() ([]byte, []int) {
 	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{1}
 }
 
+type IndexedDocument struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	DocumentId   uint64   `protobuf:"varint,1,opt,name=documentId,proto3" json:"documentId,omitempty"`
+	IndexedTerms []string `protobuf:"bytes,2,rep,name=indexedTerms,proto3" json:"indexedTerms,omitempty"`
+}
+
+func (x *IndexedDocument) Reset() {
+	*x = IndexedDocument{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_proto_gosearch_contracts_models_proto_msgTypes[2]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IndexedDocument) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IndexedDocument) ProtoMessage() {}
+
+func (x *IndexedDocument) ProtoReflect() protoreflect.Message {
+	mi := &file_proto_gosearch_contracts_models_proto_msgTypes[2]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IndexedDocument.ProtoReflect.Descriptor instead.
+func (*IndexedDocument) Descriptor() ([]byte, []int) {
+	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{2}
+}
+
+func (x *IndexedDocument) GetDocumentId() uint64 {
+	if x != nil {
+		return x.DocumentId
+	}
+	return 0
+}
+
+func (x *IndexedDocument) GetIndexedTerms() []string {
+	if x != nil {
+		return x.IndexedTerms
+	}
+	return nil
+}
+
 // - Commands Queries
 type CreateIndexedDocumentCommand struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Document *structpb.Struct `protobuf:"bytes,1,opt,name=document,proto3" json:"document,omitempty"`
+	Documents []*structpb.Struct `protobuf:"bytes,1,rep,name=documents,proto3" json:"documents,omitempty"`
 }
 
 func (x *CreateIndexedDocumentCommand) Reset() {
 	*x = CreateIndexedDocumentCommand{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_gosearch_contracts_models_proto_msgTypes[2]
+		mi := &file_proto_gosearch_contracts_models_proto_msgTypes[3]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -135,7 +190,7 @@ func (x *CreateIndexedDocumentCommand) String() string {
 func (*CreateIndexedDocumentCommand) ProtoMessage() {}
 
 func (x *CreateIndexedDocumentCommand) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gosearch_contracts_models_proto_msgTypes[2]
+	mi := &file_proto_gosearch_contracts_models_proto_msgTypes[3]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -148,12 +203,12 @@ func (x *CreateIndexedDocumentCommand) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateIndexedDocumentCommand.ProtoReflect.Descriptor instead.
 func (*CreateIndexedDocumentCommand) Descriptor() ([]byte, []int) {
-	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{2}
+	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{3}
 }
 
-func (x *CreateIndexedDocumentCommand) GetDocument() *structpb.Struct {
+func (x *CreateIndexedDocumentCommand) GetDocuments() []*structpb.Struct {
 	if x != nil {
-		return x.Document
+		return x.Documents
 	}
 	return nil
 }
@@ -169,7 +224,7 @@ type SearchQuery struct {
 func (x *SearchQuery) Reset() {
 	*x = SearchQuery{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_gosearch_contracts_models_proto_msgTypes[3]
+		mi := &file_proto_gosearch_contracts_models_proto_msgTypes[4]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -182,7 +237,7 @@ func (x *SearchQuery) String() string {
 func (*SearchQuery) ProtoMessage() {}
 
 func (x *SearchQuery) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gosearch_contracts_models_proto_msgTypes[3]
+	mi := &file_proto_gosearch_contracts_models_proto_msgTypes[4]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -195,7 +250,7 @@ func (x *SearchQuery) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchQuery.ProtoReflect.Descriptor instead.
 func (*SearchQuery) Descriptor() ([]byte, []int) {
-	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{3}
+	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *SearchQuery) GetQuery() string {
@@ -211,14 +266,13 @@ type DocumentCreatedResponse struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	IndexedTerms []string `protobuf:"bytes,1,rep,name=indexedTerms,proto3" json:"indexedTerms,omitempty"`
-	Id           uint64   `protobuf:"varint,2,opt,name=id,proto3" json:"id,omitempty"`
+	Documents []*IndexedDocument `protobuf:"bytes,1,rep,name=documents,proto3" json:"documents,omitempty"`
 }
 
 func (x *DocumentCreatedResponse) Reset() {
 	*x = DocumentCreatedResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_gosearch_contracts_models_proto_msgTypes[4]
+		mi := &file_proto_gosearch_contracts_models_proto_msgTypes[5]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -231,7 +285,7 @@ func (x *DocumentCreatedResponse) String() string {
 func (*DocumentCreatedResponse) ProtoMessage() {}
 
 func (x *DocumentCreatedResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gosearch_contracts_models_proto_msgTypes[4]
+	mi := &file_proto_gosearch_contracts_models_proto_msgTypes[5]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -244,33 +298,28 @@ func (x *DocumentCreatedResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DocumentCreatedResponse.ProtoReflect.Descriptor instead.
 func (*DocumentCreatedResponse) Descriptor() ([]byte, []int) {
-	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{4}
+	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{5}
 }
 
-func (x *DocumentCreatedResponse) GetIndexedTerms() []string {
+func (x *DocumentCreatedResponse) GetDocuments() []*IndexedDocument {
 	if x != nil {
-		return x.IndexedTerms
+		return x.Documents
 	}
 	return nil
-}
-
-func (x *DocumentCreatedResponse) GetId() uint64 {
-	if x != nil {
-		return x.Id
-	}
-	return 0
 }
 
 type SearchResponse struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
+
+	Documents []*structpb.Struct `protobuf:"bytes,1,rep,name=documents,proto3" json:"documents,omitempty"`
 }
 
 func (x *SearchResponse) Reset() {
 	*x = SearchResponse{}
 	if protoimpl.UnsafeEnabled {
-		mi := &file_proto_gosearch_contracts_models_proto_msgTypes[5]
+		mi := &file_proto_gosearch_contracts_models_proto_msgTypes[6]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		ms.StoreMessageInfo(mi)
 	}
@@ -283,7 +332,7 @@ func (x *SearchResponse) String() string {
 func (*SearchResponse) ProtoMessage() {}
 
 func (x *SearchResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_proto_gosearch_contracts_models_proto_msgTypes[5]
+	mi := &file_proto_gosearch_contracts_models_proto_msgTypes[6]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -296,7 +345,14 @@ func (x *SearchResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use SearchResponse.ProtoReflect.Descriptor instead.
 func (*SearchResponse) Descriptor() ([]byte, []int) {
-	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{5}
+	return file_proto_gosearch_contracts_models_proto_rawDescGZIP(), []int{6}
+}
+
+func (x *SearchResponse) GetDocuments() []*structpb.Struct {
+	if x != nil {
+		return x.Documents
+	}
+	return nil
 }
 
 var File_proto_gosearch_contracts_models_proto protoreflect.FileDescriptor
@@ -314,24 +370,34 @@ var file_proto_gosearch_contracts_models_proto_rawDesc = []byte{
 	0x22, 0x25, 0x0a, 0x0b, 0x53, 0x74, 0x72, 0x69, 0x6e, 0x67, 0x41, 0x72, 0x72, 0x61, 0x79, 0x12,
 	0x16, 0x0a, 0x06, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x09, 0x52,
 	0x06, 0x76, 0x61, 0x6c, 0x75, 0x65, 0x73, 0x22, 0x0f, 0x0a, 0x0d, 0x45, 0x6d, 0x70, 0x74, 0x79,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x53, 0x0a, 0x1c, 0x43, 0x72, 0x65, 0x61,
-	0x74, 0x65, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x65, 0x64, 0x44, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e,
-	0x74, 0x43, 0x6f, 0x6d, 0x6d, 0x61, 0x6e, 0x64, 0x12, 0x33, 0x0a, 0x08, 0x64, 0x6f, 0x63, 0x75,
-	0x6d, 0x65, 0x6e, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f,
-	0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72,
-	0x75, 0x63, 0x74, 0x52, 0x08, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x22, 0x23, 0x0a,
-	0x0b, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x14, 0x0a, 0x05,
-	0x71, 0x75, 0x65, 0x72, 0x79, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x71, 0x75, 0x65,
-	0x72, 0x79, 0x22, 0x4d, 0x0a, 0x17, 0x44, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x43, 0x72,
-	0x65, 0x61, 0x74, 0x65, 0x64, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x22, 0x0a,
-	0x0c, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x65, 0x64, 0x54, 0x65, 0x72, 0x6d, 0x73, 0x18, 0x01, 0x20,
-	0x03, 0x28, 0x09, 0x52, 0x0c, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x65, 0x64, 0x54, 0x65, 0x72, 0x6d,
-	0x73, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64, 0x18, 0x02, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69,
-	0x64, 0x22, 0x10, 0x0a, 0x0e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f,
-	0x6e, 0x73, 0x65, 0x42, 0x33, 0x5a, 0x31, 0x67, 0x69, 0x74, 0x68, 0x75, 0x62, 0x2e, 0x63, 0x6f,
-	0x6d, 0x2f, 0x42, 0x65, 0x74, 0x61, 0x4c, 0x69, 0x78, 0x54, 0x2f, 0x67, 0x6f, 0x73, 0x65, 0x61,
-	0x72, 0x63, 0x68, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x64, 0x6f, 0x6d, 0x61, 0x69, 0x6e, 0x2f, 0x63,
-	0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x73, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x55, 0x0a, 0x0f, 0x49, 0x6e, 0x64, 0x65,
+	0x78, 0x65, 0x64, 0x44, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x12, 0x1e, 0x0a, 0x0a, 0x64,
+	0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52,
+	0x0a, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x49, 0x64, 0x12, 0x22, 0x0a, 0x0c, 0x69,
+	0x6e, 0x64, 0x65, 0x78, 0x65, 0x64, 0x54, 0x65, 0x72, 0x6d, 0x73, 0x18, 0x02, 0x20, 0x03, 0x28,
+	0x09, 0x52, 0x0c, 0x69, 0x6e, 0x64, 0x65, 0x78, 0x65, 0x64, 0x54, 0x65, 0x72, 0x6d, 0x73, 0x22,
+	0x55, 0x0a, 0x1c, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x65, 0x64,
+	0x44, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x43, 0x6f, 0x6d, 0x6d, 0x61, 0x6e, 0x64, 0x12,
+	0x35, 0x0a, 0x09, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03,
+	0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x09, 0x64, 0x6f, 0x63,
+	0x75, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x22, 0x23, 0x0a, 0x0b, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68,
+	0x51, 0x75, 0x65, 0x72, 0x79, 0x12, 0x14, 0x0a, 0x05, 0x71, 0x75, 0x65, 0x72, 0x79, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x71, 0x75, 0x65, 0x72, 0x79, 0x22, 0x52, 0x0a, 0x17, 0x44,
+	0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x43, 0x72, 0x65, 0x61, 0x74, 0x65, 0x64, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x37, 0x0a, 0x09, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65,
+	0x6e, 0x74, 0x73, 0x18, 0x01, 0x20, 0x03, 0x28, 0x0b, 0x32, 0x19, 0x2e, 0x67, 0x6f, 0x73, 0x65,
+	0x61, 0x72, 0x63, 0x68, 0x2e, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x65, 0x64, 0x44, 0x6f, 0x63, 0x75,
+	0x6d, 0x65, 0x6e, 0x74, 0x52, 0x09, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x22,
+	0x47, 0x0a, 0x0e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73,
+	0x65, 0x12, 0x35, 0x0a, 0x09, 0x64, 0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x18, 0x01,
+	0x20, 0x03, 0x28, 0x0b, 0x32, 0x17, 0x2e, 0x67, 0x6f, 0x6f, 0x67, 0x6c, 0x65, 0x2e, 0x70, 0x72,
+	0x6f, 0x74, 0x6f, 0x62, 0x75, 0x66, 0x2e, 0x53, 0x74, 0x72, 0x75, 0x63, 0x74, 0x52, 0x09, 0x64,
+	0x6f, 0x63, 0x75, 0x6d, 0x65, 0x6e, 0x74, 0x73, 0x42, 0x33, 0x5a, 0x31, 0x67, 0x69, 0x74, 0x68,
+	0x75, 0x62, 0x2e, 0x63, 0x6f, 0x6d, 0x2f, 0x42, 0x65, 0x74, 0x61, 0x4c, 0x69, 0x78, 0x54, 0x2f,
+	0x67, 0x6f, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x2f, 0x70, 0x6b, 0x67, 0x2f, 0x64, 0x6f, 0x6d,
+	0x61, 0x69, 0x6e, 0x2f, 0x63, 0x6f, 0x6e, 0x74, 0x72, 0x61, 0x63, 0x74, 0x73, 0x62, 0x06, 0x70,
+	0x72, 0x6f, 0x74, 0x6f, 0x33,
 }
 
 var (
@@ -346,23 +412,26 @@ func file_proto_gosearch_contracts_models_proto_rawDescGZIP() []byte {
 	return file_proto_gosearch_contracts_models_proto_rawDescData
 }
 
-var file_proto_gosearch_contracts_models_proto_msgTypes = make([]protoimpl.MessageInfo, 6)
+var file_proto_gosearch_contracts_models_proto_msgTypes = make([]protoimpl.MessageInfo, 7)
 var file_proto_gosearch_contracts_models_proto_goTypes = []interface{}{
 	(*StringArray)(nil),                  // 0: gosearch.StringArray
 	(*EmptyResponse)(nil),                // 1: gosearch.EmptyResponse
-	(*CreateIndexedDocumentCommand)(nil), // 2: gosearch.CreateIndexedDocumentCommand
-	(*SearchQuery)(nil),                  // 3: gosearch.SearchQuery
-	(*DocumentCreatedResponse)(nil),      // 4: gosearch.DocumentCreatedResponse
-	(*SearchResponse)(nil),               // 5: gosearch.SearchResponse
-	(*structpb.Struct)(nil),              // 6: google.protobuf.Struct
+	(*IndexedDocument)(nil),              // 2: gosearch.IndexedDocument
+	(*CreateIndexedDocumentCommand)(nil), // 3: gosearch.CreateIndexedDocumentCommand
+	(*SearchQuery)(nil),                  // 4: gosearch.SearchQuery
+	(*DocumentCreatedResponse)(nil),      // 5: gosearch.DocumentCreatedResponse
+	(*SearchResponse)(nil),               // 6: gosearch.SearchResponse
+	(*structpb.Struct)(nil),              // 7: google.protobuf.Struct
 }
 var file_proto_gosearch_contracts_models_proto_depIdxs = []int32{
-	6, // 0: gosearch.CreateIndexedDocumentCommand.document:type_name -> google.protobuf.Struct
-	1, // [1:1] is the sub-list for method output_type
-	1, // [1:1] is the sub-list for method input_type
-	1, // [1:1] is the sub-list for extension type_name
-	1, // [1:1] is the sub-list for extension extendee
-	0, // [0:1] is the sub-list for field type_name
+	7, // 0: gosearch.CreateIndexedDocumentCommand.documents:type_name -> google.protobuf.Struct
+	2, // 1: gosearch.DocumentCreatedResponse.documents:type_name -> gosearch.IndexedDocument
+	7, // 2: gosearch.SearchResponse.documents:type_name -> google.protobuf.Struct
+	3, // [3:3] is the sub-list for method output_type
+	3, // [3:3] is the sub-list for method input_type
+	3, // [3:3] is the sub-list for extension type_name
+	3, // [3:3] is the sub-list for extension extendee
+	0, // [0:3] is the sub-list for field type_name
 }
 
 func init() { file_proto_gosearch_contracts_models_proto_init() }
@@ -396,7 +465,7 @@ func file_proto_gosearch_contracts_models_proto_init() {
 			}
 		}
 		file_proto_gosearch_contracts_models_proto_msgTypes[2].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*CreateIndexedDocumentCommand); i {
+			switch v := v.(*IndexedDocument); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -408,7 +477,7 @@ func file_proto_gosearch_contracts_models_proto_init() {
 			}
 		}
 		file_proto_gosearch_contracts_models_proto_msgTypes[3].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*SearchQuery); i {
+			switch v := v.(*CreateIndexedDocumentCommand); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -420,7 +489,7 @@ func file_proto_gosearch_contracts_models_proto_init() {
 			}
 		}
 		file_proto_gosearch_contracts_models_proto_msgTypes[4].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*DocumentCreatedResponse); i {
+			switch v := v.(*SearchQuery); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -432,6 +501,18 @@ func file_proto_gosearch_contracts_models_proto_init() {
 			}
 		}
 		file_proto_gosearch_contracts_models_proto_msgTypes[5].Exporter = func(v interface{}, i int) interface{} {
+			switch v := v.(*DocumentCreatedResponse); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_proto_gosearch_contracts_models_proto_msgTypes[6].Exporter = func(v interface{}, i int) interface{} {
 			switch v := v.(*SearchResponse); i {
 			case 0:
 				return &v.state
@@ -450,7 +531,7 @@ func file_proto_gosearch_contracts_models_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_proto_gosearch_contracts_models_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   6,
+			NumMessages:   7,
 			NumExtensions: 0,
 			NumServices:   0,
 		},
