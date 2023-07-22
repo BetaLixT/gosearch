@@ -109,6 +109,26 @@ func ToArrayContractErrorableFromPointer[in any, out any](
 // GetMigrationScripts provides all the migration scripts required for the
 // application
 func GetMigrationScripts() []roachdb.MigrationScript {
-	migrationScripts := []roachdb.MigrationScript{}
+	migrationScripts := []roachdb.MigrationScript{
+		{
+			Key: "initial",
+			Up: `
+			  CREATE TABLE SearchIndex (
+				  key string PRIMARY KEY,
+				  documents bigint[]
+			  );
+
+			  CREATE TABLE Document (
+				  id bigint PRIMARY KEY,
+				  document jsonb NOT NULL,
+				  keys string[]
+			  );
+			`,
+			Down: `
+			  DELETE TABLE SearchIndex;
+			  DELETE TABLE Document;
+			`,
+		},
+	}
 	return migrationScripts
 }

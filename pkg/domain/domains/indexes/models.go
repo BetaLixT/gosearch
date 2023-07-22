@@ -1,8 +1,8 @@
 package indexes
 
 type CreateIndex struct {
-	Keys []string
-	doc  uint64
+	Keys     []string
+	Document uint64
 }
 
 func NewCreateIndex(
@@ -11,6 +11,6 @@ func NewCreateIndex(
 ) *CreateIndex {
 	return &CreateIndex{
 		keys,
-		docs,
+		doc,
 	}
 }
