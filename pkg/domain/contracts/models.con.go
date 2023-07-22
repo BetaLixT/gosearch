@@ -32,9 +32,18 @@ func NewIndexedDocument(
 func NewCreateIndexedDocumentCommand(
 	documents []map[string]interface{},
 ) (*CreateIndexedDocumentCommand, error) {
-	resDocuments, err := structpb.NewStruct(documents)
-	if err != nil {
-		return nil, err
+	resDocuments := ([]*structpb.Struct)(nil)
+	if documents != nil {
+		resDocuments = make([]*structpb.Struct, 0, len(documents))
+		for idx := range documents {
+			temp, err := structpb.NewStruct(documents[idx])
+			if err != nil {
+				return nil, err
+			}
+			resDocuments = append(resDocuments, temp)
+		}
+	} else {
+		resDocuments = []*structpb.Struct{}
 	}
 	return &CreateIndexedDocumentCommand{
 		Documents: resDocuments,
@@ -60,9 +69,18 @@ func NewDocumentCreatedResponse(
 func NewSearchResponse(
 	documents []map[string]interface{},
 ) (*SearchResponse, error) {
-	resDocuments, err := structpb.NewStruct(documents)
-	if err != nil {
-		return nil, err
+	resDocuments := ([]*structpb.Struct)(nil)
+	if documents != nil {
+		resDocuments = make([]*structpb.Struct, 0, len(documents))
+		for idx := range documents {
+			temp, err := structpb.NewStruct(documents[idx])
+			if err != nil {
+				return nil, err
+			}
+			resDocuments = append(resDocuments, temp)
+		}
+	} else {
+		resDocuments = []*structpb.Struct{}
 	}
 	return &SearchResponse{
 		Documents: resDocuments,
