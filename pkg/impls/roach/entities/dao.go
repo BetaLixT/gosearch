@@ -129,6 +129,15 @@ func GetMigrationScripts() []roachdb.MigrationScript {
 			  DELETE TABLE Document;
 			`,
 		},
+		// {
+		// 	Key: "trgm-indexing",
+		// 	Up: `
+		// 	  CREATE INDEX searchidx_trgm_idx ON SearchIndex USING GIN(key gin_trgm_ops);
+		// 	`,
+		// 	Down: `
+		// 	  DELETE INDEX searchidx_trgm_idx;
+		// 	`,
+		// },
 	}
 	return migrationScripts
 }
