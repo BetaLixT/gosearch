@@ -32,24 +32,36 @@ func (r *Repository) Create(
 	lgr := r.Lgrf().Create(ctx)
 	lgr.Info("creating index", zap.Any("indexes", idxs))
 
+	idxMap := map[string][]uint64{}
+
+	for idx := range idxs {
+		for _, key := range idxs[idx].Keys {
+			if _, ok := idxMap[key]; !ok {
+				// TODO optimize
+				idxMap[key] = []uint64{idxs[idx].Document}
+			} else {
+				idxMap[key] = append(idxMap[key], idxs[idx].Document)
+			}
+		}
+	}
+
 	pbeg := 1
 	values := make([]interface{}, 0, len(idxs)*2)
 	valsqry := make([]string, 0, len(idxs))
 
 	// TODO: can be optimized
-	for idx := range idxs {
-		for _, key := range idxs[idx].Keys {
-			valsqry = append(
-				valsqry,
-				fmt.Sprintf("($%d, $%d)", pbeg, pbeg+1),
-			)
-			values = append(
-				values,
-				key,
-				pq.Array([]uint64{idxs[idx].Document}),
-			)
-			pbeg += 2
-		}
+	for key := range idxMap {
+		valsqry = append(
+			valsqry,
+			fmt.Sprintf("($%d, $%d)", pbeg, pbeg+1),
+		)
+		values = append(
+			values,
+			key,
+			pq.Array(idxMap[key]),
+		)
+		pbeg += 2
+
 	}
 
 	_, err := r.DBCtx().Exec(
