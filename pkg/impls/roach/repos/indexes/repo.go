@@ -46,7 +46,7 @@ func (r *Repository) Create(
 			values = append(
 				values,
 				key,
-				[]uint64{idxs[idx].Document},
+				pq.Array([]uint64{idxs[idx].Document}),
 			)
 			pbeg += 2
 		}
@@ -70,7 +70,7 @@ func (r *Repository) GetDocs(
 ) ([]uint64, error) {
 	lgr := r.Lgrf().Create(ctx)
 	lgr.Info("fetching indexed docs", zap.Strings("keys", keys))
-	res := []entities.IndexEntity{}
+	res := make([]entities.IndexEntity, 0, len(keys))
 	err := r.DBCtx().Select(
 		ctx,
 		&res,
@@ -87,9 +87,10 @@ func (r *Repository) GetDocs(
 	docs := []uint64{} // TODO optimize capacity
 	for idx := range res {
 		for jidx := range res[idx].Documents {
-			if _, ok := unqs[res[idx].Documents[jidx]]; !ok {
-				unqs[res[idx].Documents[jidx]] = struct{}{}
-				docs = append(docs, res[idx].Documents[jidx])
+			docID := uint64(res[idx].Documents[jidx])
+			if _, ok := unqs[docID]; !ok {
+				unqs[docID] = struct{}{}
+				docs = append(docs, docID)
 			}
 		}
 	}
@@ -102,7 +103,7 @@ const (
 	  INSERT INTO SearchIndex (key, documents)
 	  VALUES %s
 	  ON CONFLICT (key)
-	  DO UPDATE SET documents = array_cat(documents, excluded.documents)
+	  DO UPDATE SET documents = array_cat(searchindex.documents, excluded.documents)
 	  RETURNING *
 	`
 

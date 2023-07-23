@@ -5,12 +5,14 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"fmt"
+
+	"github.com/lib/pq"
 )
 
 type DocumentEntity struct {
-	ID       uint64      `db:"id"`
-	Document JSONObj     `db:"document"`
-	Keys     StringArray `db:"keys"`
+	ID       uint64         `db:"id"`
+	Document JSONObj        `db:"document"`
+	Keys     pq.StringArray `db:"keys"`
 }
 
 var _ sql.Scanner = (*StringArray)(nil)

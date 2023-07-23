@@ -44,7 +44,7 @@ func (r *Repository) Create(
 		values = append(
 			values,
 			docs[idx].ID,
-			docs[idx].Document,
+			entities.JSONObj(docs[idx].Document),
 			pq.Array(docs[idx].Indexed),
 		)
 		pbeg += 3

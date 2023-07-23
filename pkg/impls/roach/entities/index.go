@@ -5,11 +5,13 @@ import (
 	"database/sql/driver"
 	"encoding/json"
 	"fmt"
+
+	"github.com/lib/pq"
 )
 
 type IndexEntity struct {
-	Key       string      `db:"key"`
-	Documents UInt64Array `db:"documents"`
+	Key       string        `db:"key"`
+	Documents pq.Int64Array `db:"documents"`
 }
 
 var _ sql.Scanner = (*UInt64Array)(nil)
